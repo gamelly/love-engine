@@ -1,0 +1,10 @@
+luacov.*
+vendor/
+dist/
+html/
+rtf/
+latex/
+doxygen/
+.out
+.DS_Store
+Thumbs.db

@@ -1,0 +1,56 @@
+# Custom Configs
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "LoveEngine"
+PROJECT_NUMBER         = 0.0.16
+PROJECT_BRIEF          = "Love2D Framework for homebrew games"
+PROJECT_LOGO           = 
+GENERATE_RTF           = NO
+GENERATE_LATEX         = NO
+OUTPUT_DIRECTORY       = .
+RECURSIVE              = YES
+CREATE_SUBDIRS         = NO
+STRIP_CODE_COMMENTS    = NO
+CALL_GRAPH             = NO
+HAVE_DOT               = NO
+EXTRACT_ALL            = YES
+USE_MATHJAX            = YES
+COMPACT_LATEX          = NO
+EXTRACT_STATIC         = NO
+SHORT_NAMES            = NO
+INLINE_GROUPED_CLASSES = YES
+INLINE_SIMPLE_STRUCTS  = YES
+TYPEDEF_HIDES_STRUCT   = YES
+SHOW_FILES             = NO
+SOURCE_BROWSER         = NO
+VERBATIM_HEADERS       = NO
+REPEAT_BRIEF           = NO
+PREDEFINED             = DOXYGEN=
+PLANTUML_JAR_PATH      = $(PLANTUML_JAR_PATH)
+PLANTUML_CFG_FILE      =
+PLANTUML_INCLUDE_PATH  =
+OUTPUT_LANGUAGE        = English
+FILE_PATTERNS          = *.lua *.txt
+FILTER_PATTERNS        = *="lua vendor/doxygen_filter.lua"
+EXTENSION_MAPPING      = .lua=C++
+INPUT                  = docs src samples
+MARKDOWN_ID_STYLE      = GITHUB
+ALIASES               += startjson=@startuml{json}
+ALIASES               += endjson=@enduml
+ALIASES               += startebnf=@startuml{ebnf}
+ALIASES               += endebnf=@enduml
+ALIASES               += startsalt=@startuml{salt}
+ALIASES               += endsalt=@enduml
+ALIASES               += startmindmap=@startuml{mindmap}
+ALIASES               += endmindmap=@enduml
+ALIASES               += startmath=@f(
+ALIASES               += endmath=@f)
+# Theme: https://jothepro.github.io/doxygen-awesome-css/
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+HTML_EXTRA_STYLESHEET  = $(DOXYGEN_AWESOME_PATH)/doxygen-awesome.css \
+                         $(DOXYGEN_AWESOME_PATH)/doxygen-awesome-sidebar-only.css \
+                         $(DOXYGEN_AWESOME_PATH)/doxygen-awesome-sidebar-only-darkmode-toggle.css
+HTML_EXTRA_FILES       = $(DOXYGEN_AWESOME_PATH)/doxygen-awesome-darkmode-toggle.js \
+                         $(DOXYGEN_AWESOME_PATH)/doxygen-awesome-paragraph-link.js
+HTML_COLORSTYLE        = LIGHT
