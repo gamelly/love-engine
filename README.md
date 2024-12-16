@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="#consoles-joystick"><img width="60%" src="https://raw.githubusercontent.com/gamelly/love-engine/refs/heads/docs/assets/banner3.png"></a>
+<a href="#consoles-joystick"><img width="60%" src="https://raw.githubusercontent.com/gamelly/love-engine/refs/heads/main/assets/banner3.png"></a>
 </h1> 
 
 > Reimplementation of the love2d framework to make homebrew games to gba, nds, wii, ps2 and many other platforms!
