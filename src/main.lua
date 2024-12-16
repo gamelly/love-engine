@@ -20,8 +20,9 @@ local engine = {
 }
 
 local conversor_frame = {
-    [0] = 'line',
-    [1] = 'frame'
+    fill = 0,
+    line = 1,
+    frame = 1
 }
 
 --! @defgroup love_graphics love.graphics
@@ -78,6 +79,8 @@ end
 
 function native_callback_draw()
     native_draw_start()
+    native_draw_clear(0x000000FF, 0, 0, engine.width, engine.height)
+    native_draw_color(0xFFFFFFFF)
     love.draw()
     native_draw_flush()
 end
@@ -101,14 +104,14 @@ end
 function native_callback_init(width, height, game_lua)
     engine.width = width
     engine.height = height
-    native_draw_clear(0x000000FF, 0, 0, engine.width, engine.height)
-    native_draw_color(0xFFFFFFFF)
     native_text_font_size(12)
     local ok, app = pcall(loadstring, game_lua)
     if not ok then
         ok, app = pcall(load, game_lua)
     end
-    app()
+    while type(app) == 'function' do
+        app = app()
+    end
     love.load()
 end
 
