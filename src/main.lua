@@ -1,3 +1,5 @@
+local math = require('math')
+
 love = {
     -- user callbacks
     load = function() end,
@@ -7,9 +9,19 @@ love = {
     keypressed = function (key, scancode, isrepeat) end,
     keyreleased = function (key, scancode) end,
     -- engine API
+    physics = {},
+    filesystem = {},
     graphics = {},
     keyboard = {},
-    timer={}
+    image = {},
+    timer = {},
+    system = {},
+    mouse = {},
+    math = {},
+    audio = {},
+    sound = {},
+    window = {},
+    event = {}
 }
 
 local engine = {
@@ -54,6 +66,63 @@ function love.graphics.getWidth()
     return engine.width
 end
 
+function love.graphics.setDefaultFilter()
+end
+
+function love.graphics.setBackgroundColor()
+end
+
+function love.graphics.newShader()
+    return {}
+end
+
+function love.graphics.newCanvas()
+    return {}
+end
+
+function love.graphics.newFont()
+    return {}
+end
+
+function love.graphics.newImageFont()
+    return {}
+end
+
+function love.graphics.present()
+end
+
+function love.graphics.draw(src, x, y)
+    if src.src and src.t == 'img' then
+        return native_draw_image(src.src, x, y)
+    end
+end
+
+function love.graphics.newImage(src)
+    return {
+        t='img',
+        src=src,
+        release = function() end,
+        getWidth = function() return 100 end,
+        getHeight = function() return 100 end,
+        setWrap = function() end,
+        setFilter = function() end,
+    }
+end
+
+function love.graphics.newQuad(x, y, width, height, sw,sh)
+    return {
+        t='quad',
+        x=x,
+        y=y,
+        width=width,
+        height=height
+    }
+end
+
+function love.graphics.newSpriteBatch()
+    return {}
+end
+
 --! @}
 --! @defgroup love_keyboard love.keyboard
 --! @{
@@ -62,12 +131,119 @@ function love.keyboard.isDown(key)
     return engine.keys[key] == true
 end
 
+function love.keyboard.setKeyRepeat()
+end
+
 --! @}
 --! @defgroup love_timer love.timer
 --! @{
 
 function love.timer.getTime()
     return engine.milis
+end
+
+--! @}
+--! @defgroup love love
+--! @{
+
+function love.getVersion()
+    return 11, 0, 0
+end
+
+
+--! @}
+--! @defgroup love_system love.system
+--! @{
+
+function love.system.getOS()
+    return 'Web'
+end
+
+--! @}
+--! @defgroup love_mouse love.mouse
+--! @{
+
+function love.mouse.setVisible()
+end
+
+function love.mouse.getPosition()
+    return 0, 0
+end
+
+--! @}
+--! @defgroup love_image love.image
+--! @{
+
+function love.image.newImageData(width, height)
+    return {
+        setPixel = function() end,
+        getWidth = function() return width end,
+        getHeight = function() return height end
+    }
+end
+
+--! @}
+--! @defgroup love_math love.math
+--! @{
+
+function love.math.newRandomGenerator()
+    return {
+        random = function(self)
+            return math.random(0, 1)
+        end
+    }
+end
+
+--! @}
+--! @defgroup love_audio love.audio
+--! @{
+
+function love.audio.setPosition()
+end
+
+function love.audio.newSource()
+    return {
+        setAttenuationDistances=function() end,
+    }
+end
+
+--! @}
+--! @defgroup love_sound love.sound
+--! @{
+
+function love.sound.newSoundData()
+    return {}
+end
+
+--! @}
+--! @defgroup love_filesystem love.filesystem
+--! @{
+
+function love.filesystem.getInfo()
+end
+
+function love.filesystem.read()
+end
+
+--! @}
+--! @defgroup love_window love.window
+--! @{
+
+function love.window.setMode()
+end
+
+function love.window.toPixels(w)
+    return w
+end
+
+function love.window.setTitle()
+end
+
+function love.window.setIcon()
+end
+
+function love.window.getDesktopDimensions()
+    return engine.width, engine.height
 end
 
 --! @}
@@ -114,6 +290,10 @@ function native_callback_init(width, height, game_lua)
     end
     love.load()
 end
+
+pcall(function() 
+    require('conf')
+end)
 
 local P = {
     meta={
