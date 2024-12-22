@@ -1,7 +1,11 @@
 local math = require('math')
 
+if not arg then
+    arg = {}
+end
+
 if not unpack then
-    unpack = function() end
+    unpack = function(t) return t and table.unpack(t) end
 end
 
 love = {
@@ -21,6 +25,7 @@ love = {
     physics = {},
     filesystem = {},
     graphics = {},
+    joystick = {},
     keyboard = {},
     image = {},
     timer = {},
@@ -38,6 +43,9 @@ local engine = {
     height=720,
     keys={},
     milis=0
+}
+
+local keybindings = {
 }
 
 local conversor_frame = {
@@ -89,13 +97,18 @@ end
 function love.graphics.setBlendMode()
 end
 
+function love.graphics.setShader()
+end
+
 function love.graphics.newShader()
-    return {}
+    return {
+        send = function() end
+    }
 end
 
 function love.graphics.newCanvas()
     return {
-        renderTo=function() end
+        renderTo = function() end
     }
 end
 
@@ -112,6 +125,9 @@ end
 
 function love.graphics.draw(src, x, y)
     if src.src and src.t == 'img' then
+        if type(x) == 'table' then
+            y, x = x.y, x.x
+        end
         return native_draw_image(src.src, x, y)
     end
 end
@@ -153,6 +169,14 @@ function love.graphics.translate()
 end
 
 function love.graphics.origin()
+end
+
+--! @}
+--! @defgroup love_joystick love.joystick
+--! @{
+
+function love.joystick.getJoysticks()
+    return {}
 end
 
 --! @}
@@ -219,6 +243,12 @@ end
 --! @defgroup love_math love.math
 --! @{
 
+function love.math.random(foo, bar)
+    local one = bar and foo or 0
+    local two = bar or foo
+    return math.random(one, two)
+end
+
 function love.math.newRandomGenerator()
     return {
         random = function(self)
@@ -231,13 +261,22 @@ end
 --! @defgroup love_audio love.audio
 --! @{
 
+function love.audio.play()
+end
+
+function love.audio.stop()
+end
+
 function love.audio.setPosition()
 end
 
 function love.audio.newSource()
     return {
+        play = function() end,
+        stop = function() end,
         setLooping = function() end,
         setVolume = function() end,
+        setPosition = function() end,
         setAttenuationDistances=function() end,
     }
 end
@@ -281,6 +320,14 @@ function love.window.getDesktopDimensions()
     return engine.width, engine.height
 end
 
+
+--! @}
+--! @defgroup love_event love.event
+--! @{
+
+function love.event.quit()
+end
+
 --! @}
 
 function native_callback_loop(dt)
@@ -302,7 +349,8 @@ function native_callback_resize(width, height)
     love.resize(w, h)
 end
 
-function native_callback_keyboard(key, value)
+function native_callback_keyboard(vkey, value)
+    local key = keybindings[vkey] or vkey
     if value == true or value == 1 then
         engine.keys[key] = true
         love.keypressed(key, key, false)
@@ -323,12 +371,24 @@ function native_callback_init(width, height, game_lua)
     while type(app) == 'function' do
         app = app()
     end
-    love.load()
+    love.load(arg)
 end
 
-pcall(function() 
-    require('conf')
-end)
+local function main()
+    local config_file = io.open('love.json')
+
+    if config_file then
+        local config_content = config_file:read('*a')
+        local config_table = native_dict_json.decode(config_content)
+        keybindings = config_table.keybindings or {}
+    end
+
+    pcall(function() 
+        require('conf')
+    end)
+end
+
+main()
 
 local P = {
     meta={
