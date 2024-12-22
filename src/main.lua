@@ -1,6 +1,15 @@
 local math = require('math')
 
+if not unpack then
+    unpack = function() end
+end
+
 love = {
+    -- internal values
+    color_r = 1,
+    color_g = 1,
+    color_b = 1,
+    color_a = 1,
     -- user callbacks
     load = function() end,
     update = function(dt) end,
@@ -48,7 +57,12 @@ function love.graphics.rectangle(mode, x, y, w, h)
     return native_draw_rect(conversor_frame[mode], x, y, w, h)
 end
 
+function love.graphics.getColor()
+    return love.color_r, love.color_g, love.color_b, love.color_a
+end
+
 function love.graphics.setColor(r, g, b, a)
+    love.color_r, love.color_g, love.color_b, love.color_a = r, g, b, a
     local color = (r * 0xFF000000) + (g * 0xFF0000) + (b * 0xFF00) + ((a or 1) * 0xFF)
     return native_draw_color(color)
 end
@@ -72,12 +86,17 @@ end
 function love.graphics.setBackgroundColor()
 end
 
+function love.graphics.setBlendMode()
+end
+
 function love.graphics.newShader()
     return {}
 end
 
 function love.graphics.newCanvas()
-    return {}
+    return {
+        renderTo=function() end
+    }
 end
 
 function love.graphics.newFont()
@@ -120,7 +139,20 @@ function love.graphics.newQuad(x, y, width, height, sw,sh)
 end
 
 function love.graphics.newSpriteBatch()
-    return {}
+    return {
+        setColor=function() end,
+        clear=function() end,
+        add=function() end
+    }
+end
+
+function love.graphics.scale()
+end
+
+function love.graphics.translate()
+end
+
+function love.graphics.origin()
 end
 
 --! @}
@@ -176,9 +208,10 @@ end
 
 function love.image.newImageData(width, height)
     return {
+        paste = function() end,
         setPixel = function() end,
-        getWidth = function() return width end,
-        getHeight = function() return height end
+        getWidth = function() return 100 end,
+        getHeight = function() return 100 end
     }
 end
 
@@ -203,6 +236,8 @@ end
 
 function love.audio.newSource()
     return {
+        setLooping = function() end,
+        setVolume = function() end,
         setAttenuationDistances=function() end,
     }
 end
