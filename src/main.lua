@@ -378,9 +378,14 @@ local function main()
     local config_file = io.open('love.json')
 
     if config_file then
+        local index = 1
         local config_content = config_file:read('*a')
-        local config_table = native_dict_json.decode(config_content)
-        keybindings = config_table.keybindings or {}
+        local config_table = native_dict_json.decode(config_content) or {}
+        local key_list = {'a', 'b', 'c', 'd', 'menu', 'up', 'left', 'down', 'right'}
+        while index <= #key_list do
+            keybindings[key_list[index]] = config_table['key_'..key_list[index]]
+            index = index + 1
+        end
     end
 
     pcall(function() 
