@@ -1,0 +1,22 @@
+{
+    "name": "@gamely/love-engine",
+    "version": "0.0.17",
+    "author": "RodrigoDornelles",
+    "license": "Apache-2.0",
+    "homepage": "https://docs.gamely.com.br",
+    "repository": "https://github.com/gamelly/love-engine",
+    "funding": "https://github.com/sponsors/RodrigoDornelles",
+    "bugs": "https://github.com/gamelly/love-engine/issues",
+    "description": "Game Engine written in 100% lua that runs in a vacuum.",
+    "main": "dist/main.lua",
+    "scripts": {
+        "build": "rm -Rf dist;mkdir -p dist/dist;cp src/main.lua dist/dist;cp package.json dist;cp README.md dist"
+    },
+    "keywords": [
+        "game engine",
+        "game",
+        "engine",
+        "love2d",
+        "love"
+    ]
+}
