@@ -400,7 +400,7 @@ local P = {
         title='love-engine',
         author='RodrigoDornelles',
         description='reimplementation of the love2d framework to make homebrew games to gba, nds, wii, ps2 and many other platforms!',
-        version='0.0.16'
+        version='0.0.17'
     }
 }
 
