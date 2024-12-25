@@ -3,20 +3,23 @@ local game = {
     player_pos = 0,
     ball_pos_x = 0,
     ball_pos_y = 0,
-    ball_spd_x = 500,
-    ball_spd_y = 300,
+    ball_spd_x = 0,
+    ball_spd_y = 0,
     score = 0,
     player_size = 0,
     ball_size = 0
 }
 
 function love.load()
+    game.score = 0
     game.highscore = math.max(game.highscore, game.score)
     game.player_pos = love.graphics.getHeight() / 2
     game.ball_pos_x = love.graphics.getWidth() / 2
     game.ball_pos_y = love.graphics.getHeight() / 2
     game.player_size = math.min(love.graphics.getWidth(), love.graphics.getHeight()) / 8
     game.ball_size = math.max(love.graphics.getWidth(), love.graphics.getHeight()) / 160
+    game.ball_spd_x = game.ball_size * 100
+    game.ball_spd_y = game.ball_size * 75
 end
 
 function love.update(dt)
