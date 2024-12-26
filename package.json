@@ -10,7 +10,8 @@
     "description": "Game Engine written in 100% lua that runs in a vacuum.",
     "main": "dist/main.lua",
     "scripts": {
-        "build": "rm -Rf dist;mkdir -p dist/dist;cp src/main.lua dist/dist;cp package.json dist;cp README.md dist"
+        "build": "rm -Rf dist;mkdir -p dist/dist;cp src/main.lua dist/dist;cp package.json dist;cp README.md dist",
+        "build-win": "if exist dist (rmdir /s /q dist) && mkdir dist\\dist && copy src\\main.lua dist\\dist && copy package.json dist && copy README.md dist"
     },
     "keywords": [
         "game engine",

@@ -42,3 +42,6 @@
     "key_right": "d"
 }
 ```
+
+Just pick a `game.lua` inside `samples` folder and put inside `src` folder and run the `src` with live server.
+Select a `game.lua` file from the `samples` folder and place it within the `src` folder. Then, run the `src` directory as a **live server**.
