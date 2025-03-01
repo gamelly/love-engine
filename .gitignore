@@ -8,3 +8,5 @@ doxygen/
 .out
 .DS_Store
 Thumbs.db
+love.json
+build.json

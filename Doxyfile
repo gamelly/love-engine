@@ -1,7 +1,7 @@
 # Custom Configs
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "LoveEngine"
-PROJECT_NUMBER         = 0.0.17
+PROJECT_NUMBER         = 0.0.19
 PROJECT_BRIEF          = "Love2D Framework for homebrew games"
 PROJECT_LOGO           = 
 GENERATE_RTF           = NO
